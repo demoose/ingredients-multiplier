@@ -42,6 +42,17 @@
       display: none;
     }
 
+    .message {
+      background-color: rgb(98, 170, 233, 0.7);
+      border-radius: 2px;
+      text-align: center;
+      padding: 5px;
+    }
+
+    .hidden {
+      display: none,
+    }
+
     textarea {
       padding: 10px;
       width: 100%;
@@ -67,7 +78,8 @@
 60g dill" required></textarea>
     </form>
     <div class="result"></div>
-    <button data-clipboard-action="copy" data-clipboard-target='.result' id="copy" class="copy">Copy</button>
+    <p class='hidden message' id='message'>Copied successfully</p>
+    <button data-clipboard-action="copy" data-clipboard-target='.result' id="copy" class="hidden">Copy</button>
     <button type="submit" class="submit">Calculate</button>
   </div>
 

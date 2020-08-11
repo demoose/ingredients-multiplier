@@ -5,6 +5,7 @@ const quantitySelector = document.querySelector('[name="quantity"]');
 const servingSelector = document.querySelector('[name="servings"]');
 const feedSelector = document.querySelector('[name="feed"]');
 const copyButton = document.querySelector('#copy');
+const copyMessage = document.querySelector('#message');
 
 function transformText(text, quantity, servings, feed) {
   if (quantity || text || (servings && feed)) {
@@ -27,7 +28,6 @@ function transformText(text, quantity, servings, feed) {
       } else {
         newQ = (parseFloat(item[0]) * parseFloat(quantity)).toFixed(2);
       }
-      console.log(newQ);
       item[0] = newQ;
       return item.join('');
     });
@@ -42,7 +42,7 @@ function transformText(text, quantity, servings, feed) {
       result.removeChild(result.firstChild);
     }
     result.appendChild(resultUl);
-    copyButton.classList.remove('copy');
+    copyButton.classList.remove('hidden');
   } else {
     return (result.textContent = 'Please input a quantity and ingredients');
   }
@@ -57,8 +57,41 @@ calculateBtn.addEventListener('click', () =>
   )
 );
 
+quantitySelector.addEventListener('input', event => {
+  if (event.target.value.length !== 0) {
+    servingSelector.setAttribute('disabled', '');
+    feedSelector.setAttribute('disabled', '');
+  } else if (event.target.value.length === 0) {
+    servingSelector.toggleAttribute('disabled');
+    feedSelector.toggleAttribute('disabled');
+  }
+});
+
+servingSelector.addEventListener('input', event => {
+  if (event.target.value.length !== 0) {
+    quantitySelector.setAttribute('disabled', '');
+  } else if (
+    event.target.value.length === 0 &&
+    feedSelector.value.length === 0
+  ) {
+    quantitySelector.toggleAttribute('disabled');
+  }
+});
+
+feedSelector.addEventListener('input', event => {
+  if (event.target.value.length !== 0) {
+    quantitySelector.setAttribute('disabled', '');
+  } else if (
+    event.target.value.length === 0 &&
+    servingSelector.value.length === 0
+  ) {
+    quantitySelector.toggleAttribute('disabled');
+  }
+});
 const clipboard = new ClipboardJS(copyButton);
 clipboard.on('success', function(e) {
+  copyMessage.classList.remove('hidden');
+  setTimeout(() => copyMessage.classList.add('hidden'), 3000);
   console.log(e);
 });
 
