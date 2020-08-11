@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text Generator</title>
+  <title>Shopping List Multiplier</title>
   <link rel="stylesheet" href="./base.css">
   <style>
     body {
@@ -16,7 +16,8 @@
     .typer {
       margin: 0 auto;
       background: white;
-      width: 500px;
+      width: 90vw;
+      max-width: 500px;
       padding: 2rem;
       padding: 2rem;
       border-radius: 3px;
@@ -31,6 +32,14 @@
     input {
       margin-bottom: 10px;
       width: 100%;
+    }
+
+    .submit {
+      margin-top: 10px
+    }
+
+    .copy {
+      display: none;
     }
 
     textarea {
@@ -48,16 +57,21 @@
     <h1>Ingredients Multiplier</h1>
     <p>Enter each ingredient on a separate line in the format below</p>
     <form>
-      <input type="number" name="quantity" placeholder="Multiplier" required></textarea>
+      <input type="number" name="quantity" placeholder="Multiplier"></textarea>
+      Alternatively, use the boxes below to calculate how much you'd need.
+      <input type="number" name="servings" class="servings" placeholder="Original recipe servings">
+      <input type="number" name="feed" class="servings" placeholder="Number to feed">
       <textarea name="text" placeholder="Shopping list:
 20g dill
 40g dill
 60g dill" required></textarea>
     </form>
     <div class="result"></div>
+    <button data-clipboard-action="copy" data-clipboard-target='.result' id="copy" class="copy">Copy</button>
     <button type="submit" class="submit">Calculate</button>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
   <script src="./text.js"></script>
 </body>
 
